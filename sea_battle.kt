@@ -12,42 +12,41 @@ fun main() {
             continue
         }
     }
-
     printMyField(myField)
-
 }
 
 fun createOneDeckShip(myField: Array<Array<Int>>): Boolean {
 
-    val r1 = (0..9).random()
-    val r2 = (0..9).random()
-    val r1Range = (r1 - 1..r1 + 1)
-    val r2Range = (r2 - 1..r2 + 1)
+    val rowIndex = (0..9).random()
+    val columnIndex = (0..9).random()
 
-    for (r in r1Range) {
-        for (l in r2Range) {
-            if (r >= 0 && l >= 0 && r <= 9 && l <= 9) {
-                if (myField[r][l] == 0) {
-                    continue
-                } else {
-                    return false
-                }
-            } else {
+    println("Try: [$rowIndex][$columnIndex]")
+
+    val minRowIndex = if (rowIndex - 1 < 0) 0 else rowIndex - 1
+    val maxRowIndex = if (rowIndex + 1 > 9) 9 else rowIndex + 1
+
+    val minColumnIndex = if (columnIndex - 1 < 0) 0 else columnIndex - 1
+    val maxColumIndex = if (columnIndex + 1 > 9) 9 else columnIndex + 1
+
+    val rowIndexRange = minRowIndex..maxRowIndex
+    val columnIndexRange = minColumnIndex..maxColumIndex
+
+    for (x in rowIndexRange) {
+        for (y in columnIndexRange) {
+            if (myField[x][y] == 0) {
                 continue
+            } else {
+                return false
             }
         }
     }
 
-    for (r in r1Range) {
-        for (l in r2Range) {
-            if (r >= 0 && l >= 0 && r <= 9 && l <= 9) {
-                if (r != r1 || l != r2) {
-                    myField[r][l] = 2
-                } else {
-                    myField[r][l] = 1
-                }
+    for (x in rowIndexRange) {
+        for (y in columnIndexRange) {
+            if (x != rowIndex || y != columnIndex) {
+                myField[x][y] = 2
             } else {
-                continue
+                myField[x][y] = 1
             }
         }
     }
